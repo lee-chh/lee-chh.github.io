@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// ⬇️ 이곳을 자유롭게 수정하세요.
+const name = "이름 또는 닉네임";
+const tagline = "한 줄 소개를 적어보세요.";
+
+const sections = [
+  {
+    href: "/about",
+    title: "About",
+    summary: "어떤 사람이고 무엇에 관심이 있는지.",
+  },
+  {
+    href: "/projects",
+    title: "Projects",
+    summary: "최근에 만들거나 진행 중인 것들.",
+  },
+  {
+    href: "/posts",
+    title: "Posts",
+    summary: "글, 메모, 그리고 생각의 기록.",
+  },
+];
+---
+
+<BaseLayout title={`${name} — Home`} description={tagline}>
+  <section class="hero">
+    <p class="hello">Hi, I'm</p>
+    <h1>{name}</h1>
+    <p class="tagline">{tagline}</p>
+  </section>
+
+  <section class="sections" aria-label="페이지 목록">
+    {
+      sections.map(({ href, title, summary }) => (
+        <a class="section-card" href={href}>
+          <h2>{title}</h2>
+          <p>{summary}</p>
+          <span class="more">더 보기 →</span>
+        </a>
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 4rem 0 3rem;
+  }
+
+  .hello {
+    color: var(--color-muted);
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .tagline {
+    color: var(--color-muted);
+    font-size: 1.125rem;
+    margin: 0;
+    max-width: 32rem;
+  }
+
+  .sections {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .sections {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    background: var(--color-bg);
+  }
+
+  .section-card:hover {
+    border-color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .section-card h2 {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .section-card p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    flex: 1;
+  }
+
+  .more {
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+</style>
